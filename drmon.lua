@@ -93,10 +93,12 @@ function update()
     if ri.temperature > 6500 and ri.temperature <= 7900 then tempColor = colors.lime end
     if ri.temperature > 7900 and ri.temperature <= 8100 then tempColor = colors.orange end
     f.draw_text_lr(mon, 2, 5, 1, "Temperature", pad(f.format_int(ri.temperature),13," ") .. " C", colors.white, tempColor, colors.black)
-    local eta
-    eta = (ri.maxFuelConversion - ri.fuelConversion) / (ri.fuelConversionRate / 1000000 * 20)
-		print("ETA: ", round2(eta))
-    f.draw_text_lr(mon, 2, 6, 1, "ETA", pad(tostring(round2(eta)),11," ") .. "", colors.white, colors.blue, colors.black)
+		if ri.status == "running" then
+    	local eta
+    	eta = (ri.maxFuelConversion - ri.fuelConversion) / (ri.fuelConversionRate / 1000000 * 20)
+			print("ETA: ", round2(eta))
+    	f.draw_text_lr(mon, 2, 6, 1, "ETA", pad(tostring(round2(eta)),11," ") .. "", colors.white, colors.blue, colors.black)
+    end
     f.draw_text_lr(mon, 2, 8, 1, "Output Gate", pad(f.format_int(outFlow),10," ") .. " rf/t", colors.white, colors.blue, colors.black)
     f.draw_text_lr(mon, 2, 9, 1, "Input Gate", pad(f.format_int(inFlow),11," ") .. " rf/t", colors.white, colors.blue, colors.black)
 
